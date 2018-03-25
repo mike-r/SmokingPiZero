@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #/home/pi/temp/smoke.py
 
-#					SMOKING Pi Zero   Version: 2.1
+#					SMOKING Pi Zero   Version: 2.2
 
 # Python program to read level guage in smoke oil tank and display to an ePaper
 # display from Papirus.
@@ -30,8 +30,11 @@
 # Calculate Gallons from voltage and display that.
 
 # V 2.1
-# Recalibrated for every .5 gallons.
 # Fixed weird identing.  ie. converted spaces to TABs.
+
+# V 2.2
+# Recalibration at .5 gallon marks really done in V 2.2 not 2.1
+
 
 
 print("Hi from Smoke.py")
@@ -119,7 +122,19 @@ while True:
 	
 	value = automationhat.analog.one.read()
 	print(value)
-	gallons = (value - 0.216)/0.630
+##	gallons = (value - 0.216)/0.630
+	if value   > 3.84 gallons = 5.5
+	elif value > 3.30 gallons = 5.0
+	elif value > 3.03 gallons = 4.5
+	elif value > 2.74 gallons = 4.0
+	elif value > 2.33 gallons = 3.5
+	elif value > 1.90 gallons = 3.0
+	elif value > 1.57 gallons = 2.5
+	elif value > 1.24 gallons = 2.0
+	elif value > 0.70 gallons = 1.5
+	elif value > 0.25 gallons = 1.0
+	elif value > 0.22 gallons = 0.5
+	
 	print(gallons)
 	gallonsF = "{:.1f}".format(gallons)
 	gallonsF = gallonsF + " Gallons"
@@ -155,8 +170,8 @@ while True:
 	if value < 1.40: Level = " 1/4"
 	if value < 0.30: Level = "-EMPTY-"
 	
-	if value > 3.20: gallonsF = "--FULL--"
-	if value < 0.30: gallonsF = "-EMPTY-"
+##	if value > 3.20: gallonsF = "--FULL--"
+	if value < 0.22: gallonsF = "-EMPTY-"
 	
 	print (Level)
 	text.UpdateText("Line-3", Level)
