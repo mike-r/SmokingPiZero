@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #/home/pi/temp/smoke.py
 
-#					SMOKING Pi Zero   Version: 2.3.1
+#					SMOKING Pi Zero   Version: 2.3.2
 
 # Python program to read level guage in smoke oil tank and display to an ePaper
 # display from Papirus.
@@ -40,6 +40,7 @@
 
 # V 2.3.1 (3/27)
 # Version without OLED display.
+# V 2.3.2 found more "disp.", ".draw", and "height" lines to comment out.
 
 
 
@@ -75,21 +76,21 @@ from papirus import PapirusTextPos
 
 # Create blank image for drawing.
 # Make sure to create image with mode '1' for 1-bit color.
-width = disp.width
-height = disp.height
-image = Image.new('1', (width, height))
+##width = disp.width
+##height = disp.height
+##image = Image.new('1', (width, height))
 
 # Get drawing object to draw on image.
-draw = ImageDraw.Draw(image)
+##draw = ImageDraw.Draw(image)
 
 # Draw a black filled box to clear the image.
-draw.rectangle((0,0,width,height), outline=0, fill=0)
+##draw.rectangle((0,0,width,height), outline=0, fill=0)
 
 # Draw some shapes.
 # First define some constants to allow easy resizing of shapes.
 padding = -2
 top = padding
-bottom = height-padding
+##bottom = height-padding
 # Move left to right keeping track of the current x position for drawing shapes.
 x = 0
 font = ImageFont.truetype('/home/pi/temp/upheavtt.ttf' , 30)
@@ -107,7 +108,7 @@ text.AddText("BOOTING", 0, 60, 40, Id="Line-3")
 text.WriteAll()
 
 # Draw a black filled box to clear the image.
-draw.rectangle((0,0,width,height), outline=0, fill=0)
+##draw.rectangle((0,0,width,height), outline=0, fill=0)
 
 #	cmd = "top -bn1 | grep load | awk '{printf \"CPU: %.2f\", $(NF-2)}'"
 #	CPU = subprocess.check_output(cmd, shell = True )
@@ -116,7 +117,7 @@ OLED = "  N221TM"
 
 # Write two lines of text.
 
-draw.text((x, top+4),	str(OLED), font=font, fill=255)
+##draw.text((x, top+4),	str(OLED), font=font, fill=255)
 
 # OLED Display image.
 ##disp.image(image)
@@ -155,18 +156,18 @@ while True:
 		text.WriteAll()
 		OLED = "@@@@@@"
 # Draw a black filled box to clear the image.
-		draw.rectangle((0,0,width,height), outline=0, fill=0)
-		draw.text((x, top+4),     str(OLED), font=font, fill=255)
-		disp.image(image)	
-		disp.display()
+##		draw.rectangle((0,0,width,height), outline=0, fill=0)
+##		draw.text((x, top+4),     str(OLED), font=font, fill=255)
+##		disp.image(image)	
+##		disp.display()
 		while automationhat.input.three.read():     # Snmoke ON, so Wait
 			time.sleep(1)
 		text.UpdateText("Line-3", "<-OFF->")        # Smoke OFF
 		text.WriteAll()
 		OLED = "<-OFF->"
 # Draw a black filled box to clear the image.
-		draw.rectangle((0,0,width,height), outline=0, fill=0)
-		draw.text((x, top+4),     str(OLED), font=font, fill=255)
+##		draw.rectangle((0,0,width,height), outline=0, fill=0)
+##		draw.text((x, top+4),     str(OLED), font=font, fill=255)
 ##		disp.image(image)
 ##		disp.display()
 		time.sleep(2.0)
@@ -184,8 +185,8 @@ while True:
 	text.UpdateText("Line-1", Level3)
 	text.WriteAll()
 # Draw a black filled box to clear the image.
-	draw.rectangle((0,0,width,height), outline=0, fill=0)
-	draw.text((x, top+4),     str(gallonsF), font=font, fill=255)
+##	draw.rectangle((0,0,width,height), outline=0, fill=0)
+##	draw.text((x, top+4),     str(gallonsF), font=font, fill=255)
 ##	disp.image(image)
 ##	disp.display()
 	
