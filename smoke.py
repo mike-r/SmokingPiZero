@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #/home/pi/temp/smoke.py
 
-#					SMOKING Pi Zero   Version: 2.3
+#					SMOKING Pi Zero   Version: 2.3.1
 
 # Python program to read level guage in smoke oil tank and display to an ePaper
 # display from Papirus.
@@ -38,6 +38,9 @@
 # V 2.3   (3/25/2018}
 # Fixed syntax errors.
 
+# V 2.3.1 (3/27)
+# Version without OLED display.
+
 
 
 print("Hi from Smoke.py")
@@ -61,14 +64,14 @@ from papirus import PapirusTextPos
 
 
 # 128x32 OLED display with hardware I2C:
-disp = Adafruit_SSD1306.SSD1306_128_32(rst=RST)
+##disp = Adafruit_SSD1306.SSD1306_128_32(rst=RST)
 
 # Initialize OLED Display library.
-disp.begin()
+##disp.begin()
 
 # Clear OLED display.
-disp.clear()
-disp.display()
+##disp.clear()
+##disp.display()
 
 # Create blank image for drawing.
 # Make sure to create image with mode '1' for 1-bit color.
@@ -116,8 +119,8 @@ OLED = "  N221TM"
 draw.text((x, top+4),	str(OLED), font=font, fill=255)
 
 # OLED Display image.
-disp.image(image)
-disp.display()
+##disp.image(image)
+##disp.display()
 time.sleep(2.0)
 
 
@@ -164,8 +167,8 @@ while True:
 # Draw a black filled box to clear the image.
 		draw.rectangle((0,0,width,height), outline=0, fill=0)
 		draw.text((x, top+4),     str(OLED), font=font, fill=255)
-		disp.image(image)
-		disp.display()
+##		disp.image(image)
+##		disp.display()
 		time.sleep(2.0)
 	if value > 3.20: Level = "-FULL-"
 	if value < 3.21: Level = " 3/4"
@@ -183,8 +186,8 @@ while True:
 # Draw a black filled box to clear the image.
 	draw.rectangle((0,0,width,height), outline=0, fill=0)
 	draw.text((x, top+4),     str(gallonsF), font=font, fill=255)
-	disp.image(image)
-	disp.display()
+##	disp.image(image)
+##	disp.display()
 	
 	input2 = automationhat.input.two.read()
 	print("Input2=", input2)
