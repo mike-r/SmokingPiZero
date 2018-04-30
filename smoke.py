@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #/home/pi/temp/smoke.py
 
-#					SMOKING Pi Zero   Version: 2.3.OLED.1
+#					SMOKING Pi Zero   Version: 2.3.OLED.2
 
 # Python program to read level guage in smoke oil tank and display to an ePaper
 # display from Papirus.
@@ -41,9 +41,14 @@
 # V 2.3.OLED.1
 # Verified works with only OLED display attached
 
+# V 2.3.OLED.2
+# Missed a few more ePaper lines.  Cleaned up comments
+# Tested SAT.
+
 
 
 print("Hi OLED only from Smoke.py")
+print("Version 2.3.OLED.2")
 
 import automationhat
 import time
@@ -58,9 +63,6 @@ import subprocess
 
 # Raspberry Pi pin configuration:
 RST = None     # on the PiOLED this pin isnt used
-
-### time.sleep(7.0)  # Papirus needs to wait for the pi to finish booting.
-###from papirus import PapirusTextPos
 
 
 # 128x32 OLED display with hardware I2C:
@@ -95,20 +97,14 @@ bottom = height-padding
 x = 0
 font = ImageFont.truetype('/home/pi/temp/upheavtt.ttf' , 30)
 
-
 time.sleep(0.1)  # short pause after ads1015 class creation
-
-
 
 # Draw a black filled box to clear the image.
 draw.rectangle((0,0,width,height), outline=0, fill=0)
 
-#	cmd = "top -bn1 | grep load | awk '{printf \"CPU: %.2f\", $(NF-2)}'"
-#	CPU = subprocess.check_output(cmd, shell = True )
-
 OLED = "  N221TM"
 
-# Write two lines of text.
+# Write text.
 
 draw.text((x, top+4),	str(OLED), font=font, fill=255)
 
@@ -145,8 +141,6 @@ while True:
 	print (Level3)
 	
 	if automationhat.input.three.read():        # Smoke is ON
-		text.UpdateText("Line-3", "<@@@@@>")
-		text.WriteAll()
 		OLED = "@@@@@@"
 # Draw a black filled box to clear the image.
 		draw.rectangle((0,0,width,height), outline=0, fill=0)
@@ -155,8 +149,6 @@ while True:
 		disp.display()
 		while automationhat.input.three.read():     # Snmoke ON, so Wait
 			time.sleep(1)
-		text.UpdateText("Line-3", "<-OFF->")        # Smoke OFF
-		text.WriteAll()
 		OLED = "<-OFF->"
 # Draw a black filled box to clear the image.
 		draw.rectangle((0,0,width,height), outline=0, fill=0)
@@ -174,9 +166,7 @@ while True:
 	if value < 0.22: gallonsF = "-EMPTY-"
 	
 	print (Level)
-	text.UpdateText("Line-3", Level)
-	text.UpdateText("Line-1", Level3)
-	text.WriteAll()
+
 # Draw a black filled box to clear the image.
 	draw.rectangle((0,0,width,height), outline=0, fill=0)
 	draw.text((x, top+4),     str(gallonsF), font=font, fill=255)
