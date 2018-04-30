@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #/home/pi/temp/smoke.py
 
-#					SMOKING Pi Zero   Version: 2.3.ePaper.1
+#					SMOKING Pi Zero   Version: 2.3.ePaper.3
 
 # Python program to read level guage in smoke oil tank and display to an ePaper
 # display from Papirus.
@@ -44,24 +44,23 @@
 
 # V2.3.ePaper.1
 # updated version standard
+# .2 syntax error
 
+
+# V2.3.ePaper.3
+# Found more OLED code and reduced sleep time at the start 
 
 
 print("PaPiRus ePaper Smoke.py")
-print(" V 2.3.ePaper.1 without OLED")
+print("Version 2.3.ePaper.3 without OLED")
 
 import automationhat
 import time
 import Adafruit_GPIO.SPI as SPI
-###import Adafruit_SSD1306
-
-###from PIL import Image
-###from PIL import ImageDraw
-###from PIL import ImageFont
 
 import subprocess
 
- time.sleep(7.0)  # Papirus needs to wait for the pi to finish booting.
+time.sleep(6.0)  # Papirus needs to wait for the pi to finish booting.
 from papirus import PapirusTextPos
 
 
