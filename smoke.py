@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #/home/pi/temp/smoke.py
 
-#					SMOKING Pi Zero   Version: 2.3
+#					SMOKING Pi Zero   Version: 2.3.OLED.1
 
 # Python program to read level guage in smoke oil tank and display to an ePaper
 # display from Papirus.
@@ -38,9 +38,12 @@
 # V 2.3   (3/25/2018}
 # Fixed syntax errors.
 
+# V 2.3.OLED.1
+# Verified works with only OLED display attached
 
 
-print("Hi from Smoke.py")
+
+print("Hi OLED only from Smoke.py")
 
 import automationhat
 import time
@@ -57,7 +60,7 @@ import subprocess
 RST = None     # on the PiOLED this pin isnt used
 
 ### time.sleep(7.0)  # Papirus needs to wait for the pi to finish booting.
-from papirus import PapirusTextPos
+###from papirus import PapirusTextPos
 
 
 # 128x32 OLED display with hardware I2C:
@@ -67,6 +70,7 @@ disp = Adafruit_SSD1306.SSD1306_128_32(rst=RST)
 disp.begin()
 
 # Clear OLED display.
+print("Clearing OLED Display")
 disp.clear()
 disp.display()
 
@@ -94,14 +98,7 @@ font = ImageFont.truetype('/home/pi/temp/upheavtt.ttf' , 30)
 
 time.sleep(0.1)  # short pause after ads1015 class creation
 
-text = PapirusTextPos(False)
 
-text.Clear()
-time.sleep(1.0)
-text.AddText("N221TM", 10 ,0, 40, Id="Line-1")
-text.AddText("SMOKE TANK", 0, 35, 30, Id="lINE-2")
-text.AddText("BOOTING", 0, 60, 40, Id="Line-3")
-text.WriteAll()
 
 # Draw a black filled box to clear the image.
 draw.rectangle((0,0,width,height), outline=0, fill=0)
@@ -140,7 +137,7 @@ while True:
 	
 	print(gallons)
 	gallonsF = "{:.1f}".format(gallons)
-	gallonsF = gallonsF + " Gallons"
+	gallonsF = gallonsF + " Gal"
 	print(gallonsF)
 	Level2 = "{:.2f}".format(value)
 	print(Level2)
