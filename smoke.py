@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #/home/pi/temp/smoke.py
 
-#					SMOKING Pi Zero   Version: 2.3.ePaper.3
+#					SMOKING Pi Zero   Version: 2.3.ePaper.4
 
 # Python program to read level guage in smoke oil tank and display to an ePaper
 # display from Papirus.
@@ -46,13 +46,15 @@
 # updated version standard
 # .2 syntax error
 
-
 # V2.3.ePaper.3
 # Found more OLED code and reduced sleep time at the start 
 
+# V2.3.ePaper.4
+# Adjusted formmate of epaper printout
+
 
 print("PaPiRus ePaper Smoke.py")
-print("Version 2.3.ePaper.3 without OLED")
+print("Version 2.3.ePaper.4 without OLED")
 
 import automationhat
 import time
@@ -60,19 +62,18 @@ import Adafruit_GPIO.SPI as SPI
 
 import subprocess
 
-time.sleep(6.0)  # Papirus needs to wait for the pi to finish booting.
+time.sleep(5.0)  # Papirus needs to wait for the pi to finish booting.
 from papirus import PapirusTextPos
-
-
 
 
 text = PapirusTextPos(False)
 
 text.Clear()
 time.sleep(1.0)
-text.AddText("N221TM", 10 ,0, 40, Id="Line-1")
-text.AddText("SMOKE TANK", 0, 35, 30, Id="lINE-2")
-text.AddText("BOOTING", 0, 60, 40, Id="Line-3")
+text.AddText("N221TM", 30 ,0, 39, Id="Line-1")
+text.AddText("SMOKE TANK", 10, 36, 30, Id="lINE-2")
+text.AddText("BOOTING", 15, 60, 39, Id="Line-3")
+#                    Start collum, start row, hight
 text.WriteAll()
 
 time.sleep(2.0)
@@ -112,10 +113,10 @@ while True:
 		text.UpdateText("Line-3", "<-OFF->")        # Smoke OFF
 		text.WriteAll()
 		time.sleep(2.0)
-	if value > 3.20: Level = "-FULL-"
-	if value < 3.21: Level = " 3/4"
-	if value < 2.30: Level = " 1/2"
-	if value < 1.40: Level = " 1/4"
+	if value > 3.20: Level = " -FULL-"
+	if value < 3.21: Level = "  3/4"
+	if value < 2.30: Level = "  1/2"
+	if value < 1.40: Level = "  1/4"
 	if value < 0.30: Level = "-EMPTY-"
 	
 ##	if value > 3.20: gallonsF = "--FULL--"
