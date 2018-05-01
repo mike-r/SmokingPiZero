@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #/home/pi/temp/smoke.py
 
-#					SMOKING Pi Zero   Version: 2.3.ePaper.4
+#					SMOKING Pi Zero   Version: 2.3.ePaper.5
 
 # Python program to read level guage in smoke oil tank and display to an ePaper
 # display from Papirus.
@@ -51,10 +51,11 @@
 
 # V2.3.ePaper.4
 # Adjusted formmate of epaper printout
+# .5 changed voltage display to gallons
 
 
 print("PaPiRus ePaper Smoke.py")
-print("Version 2.3.ePaper.4 without OLED")
+print("Version 2.3.ePaper.5 without OLED")
 
 import automationhat
 import time
@@ -71,7 +72,7 @@ text = PapirusTextPos(False)
 text.Clear()
 time.sleep(1.0)
 text.AddText("N221TM", 30 ,0, 39, Id="Line-1")
-text.AddText("SMOKE TANK", 10, 36, 30, Id="lINE-2")
+text.AddText("SMOKE TANK", 10, 36, 30, Id="Line-2")
 text.AddText("BOOTING", 15, 60, 39, Id="Line-3")
 #                    Start collum, start row, hight
 text.WriteAll()
@@ -96,9 +97,13 @@ while True:
 	elif value > 0.25: gallons = 1.0
 	elif value > 0.22: gallons = 0.5
 	
-	print(gallons)
+
+	
+#	print(gallons)
 	gallonsF = "{:.1f}".format(gallons)
-	gallonsF = gallonsF + " Gallons"
+	gallonsF = gallonsF + " Gal"
+	if value < 0.22: gallonsF = "-EMPTY-"
+	text.UpdateText("Line-3", gallonsF)
 	print(gallonsF)
 	Level2 = "{:.2f}".format(value)
 	print(Level2)
@@ -108,23 +113,24 @@ while True:
 	if automationhat.input.three.read():        # Smoke is ON
 		text.UpdateText("Line-3", "<@@@@@>")
 		text.WriteAll()
-		while automationhat.input.three.read():     # Snmoke ON, so Wait
+		while automationhat.input.three.read():     # Smoke ON, so Wait
 			time.sleep(1)
 		text.UpdateText("Line-3", "<-OFF->")        # Smoke OFF
 		text.WriteAll()
 		time.sleep(2.0)
-	if value > 3.20: Level = " -FULL-"
+	if value > 3.20: Level = "--FULL--"
 	if value < 3.21: Level = "  3/4"
 	if value < 2.30: Level = "  1/2"
 	if value < 1.40: Level = "  1/4"
 	if value < 0.30: Level = "-EMPTY-"
 	
 ##	if value > 3.20: gallonsF = "--FULL--"
-	if value < 0.22: gallonsF = "-EMPTY-"
+
 	
 	print (Level)
-	text.UpdateText("Line-3", Level)
-	text.UpdateText("Line-1", Level3)
+##	text.UpdateText("Line-3", Level)
+##	text.UpdateText("Line-1", Level3)
+
 	text.WriteAll()
 	
 	input2 = automationhat.input.two.read()
