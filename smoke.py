@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #/home/pi/temp/smoke.py
 
-#					SMOKING Pi Zero   Version: 2.3.OLED.2
+#					SMOKING Pi Zero   Version: 2.4.OLED.2
 
 # Python program to read level guage in smoke oil tank and display to an ePaper
 # display from Papirus.
@@ -45,6 +45,8 @@
 # Missed a few more ePaper lines.  Cleaned up comments
 # Tested SAT.
 
+# V 2.4.OLED.2
+# Convigured Pi as an Access Point
 
 
 print("Hi OLED only from Smoke.py")
@@ -54,7 +56,11 @@ import automationhat
 import time
 import Adafruit_GPIO.SPI as SPI
 import Adafruit_SSD1306
+import socket
 
+UDP_IP = "127.0.0.1"
+UDP_PORT = 5007
+   
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
@@ -191,5 +197,15 @@ while True:
 		if automationhat.input.three.read(): break # Smoke is ON
 	print("change ", change)
 	time.sleep(0.01)
+	
+# MESSAGE = "Hello, World!"
+
+print "UDP target IP:", UDP_IP
+print "UDP target port:", UDP_PORT
+# print "message:", MESSAGE
+
+sock = socket.socket(socket.AF_INET, # Internet
+                  socket.SOCK_DGRAM) # UDP
+sock.sendto(Level3, (UDP_IP, UDP_PORT))
 	
 exit()
